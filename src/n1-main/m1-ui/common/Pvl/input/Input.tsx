@@ -1,11 +1,11 @@
-import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes} from 'react'
+import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, useState} from 'react'
 import s from "./Input.module.scss";
 
 import icon from '../../../../../assets/img/shape.svg';
 import {inputDataType} from "../../../../../n2-features/f1-auth/a1-login/LoginForm";
 
 export const Input: React.FC<PropsType> = (
-    {inputData, value, onChange, onChangeText, isHidden, autoComplete, ...restProps}
+    {inputData, value, onChange, onChangeText, isHidden, autoComplete, setInputType, ...restProps}
 ) => {
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
         onChange // если есть пропс onChange
@@ -15,9 +15,10 @@ export const Input: React.FC<PropsType> = (
     }
 
     const changeTypeHandler = () => {
-        inputData.type === 'password' ? inputData.type = '' : inputData.type = 'password'
+        if (setInputType ) {inputData.type === 'password' ? setInputType('') : setInputType('password')}
     }
 
+    // const [inputType, setInputType] = useState('password')
 
     return (
         <div className={s.input}>
@@ -47,6 +48,7 @@ type PropsType = DefaultInputPropsType & {
     onChangeText?: (value: string) => void
     isHidden?: boolean
     autoComplete?: 'on' | 'off'
+    setInputType?: React.Dispatch<React.SetStateAction<string>>
 }
 
 

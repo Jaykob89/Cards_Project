@@ -1,5 +1,5 @@
 import s from "./MyPacksList.module.scss";
-import ProfileBlock from "../../common/Pvl/profile-block/ProfileBlock.jsx";
+import ProfileBlock from "../../common/Pvl/profile-block/ProfileBlock.tsx";
 import Subtitle from "../../common/Pvl/subtitle/Subtitle.jsx";
 import Search from "../../../../n2-features/f2-table/Search/SearchMain/Search.tsx";
 import Table from "../table/Table";

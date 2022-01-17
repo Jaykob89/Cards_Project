@@ -16,6 +16,10 @@
    border-radius: 8px 0 0 8px;
 }
 
+.profileBlock {
+   margin-bottom: 45px;
+}
+
 .label {
    display: inline-block;
    @include font(16px, 600, 120%, $textColor);

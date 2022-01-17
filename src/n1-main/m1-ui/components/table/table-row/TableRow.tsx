@@ -27,7 +27,7 @@ export default function TableRow(props: PropsType) {
 
     const {cardPacks} = useSelector<AppStoreType, packsStateType>(state => state.packs)
     const dispatch = useDispatch()
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const showModalDelPackHandler = (id: string) => {
         dispatch(setClickedCardPackId(id))

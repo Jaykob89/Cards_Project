@@ -7,7 +7,7 @@ import icon from "../../../assets/img/photo-icon.svg";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../../../n1-main/m2-bll/store";
 import {AuthResponseType} from "../../../n1-main/m2-bll/api/api";
-import {Navigate} from "react-router-dom";
+import {Navigate, NavigateOptions} from "react-router-dom";
 import React, {ChangeEvent, useRef, useState} from "react";
 import Button from "../../../n1-main/m1-ui/common/Pvl/button/Button";
 import {profileUpdateAC, UpdateProfileTC} from "../../../n1-main/m2-bll/authReducer";
@@ -90,10 +90,6 @@ export default function ProfileForm() {
 
         try {
             reader.readAsDataURL(newFile as Blob);
-        } catch {
-            console.log('error in reader.readAsDataURL')
-        } finally {
-            console.log('here we go even after catch')
             reader.onload = () => {
                 image.src = reader.result as string;
 
@@ -101,7 +97,6 @@ export default function ProfileForm() {
                     setWidth(image.width)
                     if (image.width === 96 && image.height === 96) {
                         setError(false)
-                        console.log('load to server')
                         dispatch(profileUpdateAC(reader.result as string))
                     } else setError(true)
                 }
@@ -109,12 +104,11 @@ export default function ProfileForm() {
             };
             reader.onerror = (error) => {
             }
+        } catch {
+            console.log('error in reader.readAsDataURL')
         }
 
-
     }
-
-    console.log(error)
 
     const goToEditModeHandler = () => {
         setIsEditMode(true)
@@ -184,5 +178,3 @@ export default function ProfileForm() {
     );
 }
 
-// todo: fix catch finally logic
-// todo: input: disable autofill when !isEditMode

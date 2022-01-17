@@ -13,41 +13,9 @@ import Button from "../../../n1-main/m1-ui/common/Pvl/button/Button";
 import { buttonColorTwo } from "../../../n1-main/m1-ui/common/styles/inlineVariables";
 import { buttonFontColorTwo } from "../../../n1-main/m1-ui/common/styles/inlineVariables";
 
-// данные для input email
-const inputData1 = {
-   id: "email",
-   type: "email",
-   name: "email",
-   for: "email",
-   label: "Email",
-   style: {
-      display: "none"
-   }
-}
 
-// данные для input password
-const inputData2 = {
-   id: "password",
-   type: "password",
-   name: "password",
-   for: "password",
-   label: "Password",
-   style: {
-      display: "inlineBlock"
-   }
-}
 
-// данные для input confirm password
-const inputData3 = {
-   id: "checkPassword",
-   type: "password",
-   name: "checkPassword",
-   for: "checkPassword",
-   label: "Confirm password",
-   style: {
-      display: "inlineBlock"
-   }
-}
+
 
 // стилизация кнопок
 const styleButton1 = {
@@ -62,6 +30,44 @@ const styleButton2 = {
 }
 
 export default function RegistrationForm() {
+   const [inputType, setInputType] = useState('password')
+
+   // данные для input email
+   const inputData1 = {
+      id: "email",
+      type: "email",
+      name: "email",
+      for: "email",
+      label: "Email",
+      style: {
+         display: "none"
+      }
+   }
+
+   // данные для input password
+   const inputData2 = {
+      id: "password",
+      type: inputType,
+      name: "password",
+      for: "password",
+      label: "Password",
+      style: {
+         display: "inlineBlock"
+      }
+   }
+
+// данные для input confirm password
+   const inputData3 = {
+      id: "checkPassword",
+      type: inputType,
+      name: "checkPassword",
+      for: "checkPassword",
+      label: "Confirm password",
+      style: {
+         display: "inlineBlock"
+      }
+   }
+
    const schemeCreator = () => {
       return yup.object().shape({
          email: yup.string().email('Invalid email').required('Required').trim(),
@@ -81,6 +87,7 @@ export default function RegistrationForm() {
    const error = useSelector<AppStoreType, string | null>(state => state.registration.error)
    const message = useSelector<AppStoreType, string | null>(state => state.registration.message)
    const status = useSelector<AppStoreType, RequestStatusType>(state => state.registration.status)
+
 
    const createNewUserHandler = (email: string, password: string) => {
       dispatch(createNewUser(email, password))
@@ -135,11 +142,13 @@ export default function RegistrationForm() {
                   <span className={s.error}>{formik.touched.email ? formik.errors.email : ''}</span>
                   <Input
                      inputData={inputData2}
+                     setInputType={setInputType}
                      {...formik.getFieldProps('password')}
                   />
                   <span className={s.error}>{formik.touched.password && formik.errors.password ? formik.errors.password : ''}</span>
                   <Input
                      inputData={inputData3}
+                     setInputType={setInputType}
                      {...formik.getFieldProps('checkPassword')}
                   />
                   <span className={s.error}>{formik.touched.checkPassword && formik.errors.checkPassword ? formik.errors.checkPassword : ''}</span>
